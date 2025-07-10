@@ -25,7 +25,7 @@ import { LoginRequest } from './dto/login.dto'
 import { RegisterPhysicalDto,RegisterLegalDto, RegisterLocalUserDto, SendOtpDto, VerifyOtpDto } from './dto/register.dto'
 import { Recaptcha } from '@nestlab/google-recaptcha'
 import { Authorization } from './decorators/auth.decorator'
-import { UserType } from 'generated/prisma'
+import { UserType } from '../../generated/prisma'
 
 @ApiTags('Auth')
 @Controller('auth')

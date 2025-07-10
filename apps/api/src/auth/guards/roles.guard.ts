@@ -7,7 +7,7 @@ import {
 import { Reflector } from '@nestjs/core'
 
 import { ROLES_KEY } from '../decorators/roles.decorator'
-import { UserType } from 'generated/prisma'
+import { UserType } from '../../../generated/prisma'
 
 // Extend Express Request interface to include 'user'
 declare module 'express-serve-static-core' {
