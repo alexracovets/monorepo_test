@@ -13,6 +13,7 @@ import { UserModule } from './user/user.module';
     ConfigModule.forRoot({
       ignoreEnvFile: !IS_DEV_ENV,
       isGlobal: true,
+      envFilePath: ['.env.development', '.env.production', '.env'],
     }) as any,
     RequestsModule,
     PrismaModule,
