@@ -9,6 +9,9 @@ export const Results: CollectionConfig = {
     access: {
         read: () => true,
     },
+    admin: {
+        defaultColumns: ['title', 'slug', 'description'],
+    },
     fields: [
         {
             name: 'title',

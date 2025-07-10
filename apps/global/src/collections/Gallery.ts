@@ -9,6 +9,9 @@ export const Gallery: CollectionConfig = {
     access: {
         read: () => true,
     },
+    admin: {
+        defaultColumns: ['image', 'title', 'slug'],
+    },
     fields: [
         {
             name: "image",

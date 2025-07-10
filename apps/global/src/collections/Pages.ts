@@ -9,6 +9,7 @@ export const Pages: CollectionConfig = {
     },
     admin: {
         useAsTitle: 'name',
+        defaultColumns: ['name', 'slug', 'title'],
     },
     access: {
         create: () => false,

@@ -9,6 +9,9 @@ export const Partners: CollectionConfig = {
     access: {
         read: () => true,
     },
+    admin: {
+        defaultColumns: ['name', 'image'],
+    },
     fields: [
         {
             name: 'name',
