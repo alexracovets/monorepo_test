@@ -7,8 +7,13 @@ import { motion, useScroll, useMotionValueEvent } from "framer-motion";
 import { Container, Logo } from "@repo/ui/atoms";
 import { HeaderNavigation, Login } from "@repo/ui/molecules";
 import { cn } from "@repo/ui/utils";
+import { NavigationItem } from "@repo/ui/types";
 
-export const Header = () => {
+interface HeaderProps {
+    navigation: NavigationItem[];
+}
+
+export const Header = ({ navigation }: HeaderProps) => {
     const headerRef = useRef<HTMLDivElement>(null);
     const [isSticky, setIsSticky] = useState(true);
     const [isShadow, setIsShadow] = useState(false);
@@ -56,7 +61,7 @@ export const Header = () => {
                 <Link href="/">
                     <Logo />
                 </Link>
-                <HeaderNavigation />
+                <HeaderNavigation navigation={navigation} />
                 <div>
                     <Login />
                 </div>

@@ -7,3 +7,4 @@ export { getNews } from "./getNews";
 export { getNewsItem } from "./getNewsItem";
 export { generateMeta } from "./generateMeta";
 export { getCollection } from "./getCollection";
+export { getNavigation } from "./getNavigation";

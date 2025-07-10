@@ -1,0 +1,1 @@
+export { getNavigation } from './getNavigation';
