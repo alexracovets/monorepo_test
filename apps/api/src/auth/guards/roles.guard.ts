@@ -11,14 +11,14 @@ import { UserType } from 'generated/prisma'
 
 // Extend Express Request interface to include 'user'
 declare module 'express-serve-static-core' {
-	interface Request {
-		user?: any;
-	}
+  interface Request {
+    user?: any;
+  }
 }
 
 @Injectable()
 export class RolesGuard implements CanActivate {
-	public constructor(private readonly reflector: Reflector) { }
+	public constructor(private readonly reflector: Reflector) {}
 
 	public async canActivate(context: ExecutionContext): Promise<boolean> {
 		const roles = this.reflector.getAllAndOverride<UserType[]>(ROLES_KEY, [
