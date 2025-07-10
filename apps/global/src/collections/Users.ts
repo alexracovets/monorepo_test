@@ -4,6 +4,10 @@ export const Users: CollectionConfig = {
   slug: 'users',
   access: {
     create: ({ req: { user } }) => {
+      // Дозволяємо створення користувачів без авторизації, якщо це перший користувач
+      if (!user) {
+        return true;
+      }
       return user?.isSuperAdmin === true;
     },
     update: ({ req: { user } }) => {
@@ -22,6 +26,33 @@ export const Users: CollectionConfig = {
   },
   auth: true,
   hooks: {
+    beforeChange: [
+      async ({ req, data, operation }) => {
+        // Якщо це створення першого користувача, автоматично робимо його супер адміном
+        if (operation === 'create') {
+          const userCount = await req.payload.find({
+            collection: 'users',
+            limit: 1,
+          });
+          
+          if (userCount.totalDocs === 0) {
+            data.isSuperAdmin = true;
+          }
+        }
+        
+        // Якщо в системі немає супер адміністраторів, робимо першого користувача супер адміном
+        if (operation === 'create' && !data.isSuperAdmin) {
+          const superAdminCount = await req.payload.find({
+            collection: 'users',
+            where: { isSuperAdmin: { equals: true } },
+          });
+          
+          if (superAdminCount.totalDocs === 0) {
+            data.isSuperAdmin = true;
+          }
+        }
+      },
+    ],
     beforeDelete: [
       async ({ req, id }) => {
         const userToDelete = await req.payload.findByID({
@@ -52,6 +83,29 @@ export const Users: CollectionConfig = {
       label: "Супер адміністратор",
       type: "checkbox",
       defaultValue: true,
+      validate: async (value, { req, id, data }) => {
+        // Якщо знімаємо галочку супер адміна
+        if (value === false && id) {
+          const currentUser = await req.payload.findByID({
+            collection: 'users',
+            id,
+          });
+
+          // Якщо поточний користувач є супер адміном
+          if (currentUser.isSuperAdmin) {
+            const superAdminCount = await req.payload.find({
+              collection: 'users',
+              where: { isSuperAdmin: { equals: true } },
+            });
+            
+            if (superAdminCount.totalDocs <= 1) {
+              return 'Неможливо зняти права супер адміністратора: це єдиний супер адміністратор в системі';
+            }
+          }
+        }
+        
+        return true;
+      },
       access: {
         update: async ({ req, id, data }) => {
           if (!req.user?.isSuperAdmin) return false;
@@ -62,6 +116,7 @@ export const Users: CollectionConfig = {
             id,
           });
 
+          // Запобігаємо зняттю галочки з останнього супер адміна
           if (currentUser.isSuperAdmin && data?.isSuperAdmin === false) {
             const superAdminCount = await req.payload.find({
               collection: 'users',
