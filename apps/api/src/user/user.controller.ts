@@ -10,7 +10,7 @@ import {
 import { UserService } from './user.service'
 import { Authorization } from 'src/auth/decorators/auth.decorator'
 import { Authorized } from 'src/auth/decorators/authorized.decorator'
-import { UserType } from '../../generated/prisma'
+import { UserType } from 'generated/prisma'
 
 @Controller('users')
 export class UserController {
