@@ -1,0 +1,23 @@
+{
+  "extends": "@repo/typescript-config/react-library.json",
+  "compilerOptions": {
+    "outDir": "dist",
+    "rootDir": "../..",
+    "paths": {
+      "@repo/ui/payload.config": [
+        "/apps/global/src/payload.config.ts"
+      ],
+      "@repo/ui/payload-types": [
+        "/apps/global/src/payload-types.ts"
+      ]
+    }
+  },
+  "include": [
+    "src"
+  ],
+  "exclude": [
+    "dist",
+    "build",
+    "node_modules"
+  ]
+}

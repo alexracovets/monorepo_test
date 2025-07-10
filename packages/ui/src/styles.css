@@ -1,0 +1,15 @@
+/* Component-level styles for the UI package */
+@import "tailwindcss";
+
+@theme {
+    --font-gilroy: "Gilroy", sans-serif;
+
+    --color-bg: #f6f3ee;
+    --color-white: #fff;
+    --color-bage: #ececdf;
+    --color-gray: #7f7f7a;
+    --color-gray-light: #ECECDF;
+    --color-light-pink: #F6F2EE;
+    --color-yellow: #FFDD00;
+    --color-gray-secondary: #84827F;
+}

@@ -1,0 +1,73 @@
+model User {
+    id        String   @id @default(uuid())
+    type      UserType @default(LIMITED)
+    isBlocked Boolean  @default(false)
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    phone     String?  @unique
+
+    physicalPerson PhysicalPerson?
+    legalEntity    LegalEntity?
+    localUser      LocalUser?
+}
+
+model PhysicalPerson {
+    id     String @id @default(uuid())
+    user   User   @relation(fields: [userId], references: [id])
+    userId String @unique
+
+    phone      String @unique
+    lastName   String
+    firstName  String
+    middleName String
+    email      String
+
+    city              String?
+    region            String?
+    website           String?
+    volunteerDocBytes Bytes?
+}
+
+model LegalEntity {
+    id     String @id @default(uuid())
+    user   User   @relation(fields: [userId], references: [id])
+    userId String @unique
+
+    phone              String           @unique
+    organizationName   String
+    edrpouCode         String
+    organizationType   OrganizationType @relation(fields: [organizationTypeId], references: [id])
+    organizationTypeId String
+
+    contactPerson String
+    email         String
+
+    website           String
+    city              String
+    region            String
+    street            String
+    nonprofitDocBytes Bytes?
+    usesEDOViaVchasno Boolean @default(false)
+}
+
+model LocalUser {
+    id           String  @id @default(uuid())
+    user         User    @relation(fields: [userId], references: [id])
+    userId       String  @unique
+    isSuperAdmin Boolean @default(false)
+
+    email String @unique
+}
+
+model OrganizationType {
+    id            String        @id @default(uuid())
+    name          String
+    legalEntities LegalEntity[]
+}
+
+enum UserType {
+    LIMITED
+    PHYSICAL
+    LEGAL
+    LOCAL
+}
