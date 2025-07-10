@@ -141,7 +141,7 @@ export const SignForm = () => {
                     render={() => (
                         <FormItem className="relative">
                             <ReCaptcha
-                                siteKey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || "your_site_key_here"}
+                                siteKey={process.env.GOOGLE_RECAPTCHA_SECRET_KEY || "your_site_key_here"}
                                 onChange={handleRecaptchaChange}
                             />
                             <FormMessage className="absolute top-0 left-0 translate-y-[-100%]" />
