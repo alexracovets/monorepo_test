@@ -14,4 +14,4 @@ export const getNavigation = async ({ config }: GetNavigationProps) => {
         slug: 'header',
     });
     return navigation;
-}
+};
