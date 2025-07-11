@@ -16,7 +16,6 @@ type PageProps = {
 };
 
 export const revalidate = 60;
-export const dynamicParams = false;
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { award_page } = await params;

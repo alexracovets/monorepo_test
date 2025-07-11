@@ -9,7 +9,6 @@ import { Page, Result } from "@payload-types";
 import config from "@payload-config";
 
 export const revalidate = 60;
-export const dynamicParams = false;
 
 export async function generateMetadata(): Promise<Metadata> {
   const resolvedConfig = await config as Config;

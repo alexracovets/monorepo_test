@@ -13,7 +13,6 @@ import config from "@payload-config";
 import "@repo/ui/styles/news_content.scss";
 
 export const revalidate = 60;
-export const dynamicParams = false;
 
 interface ExampleStepsProps {
   params: Promise<{ news_page: string; }>
