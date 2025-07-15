@@ -7,9 +7,6 @@ export type { ContentType } from "./ContentType";
 export type { AwardType } from "./AwardType";
 export type { PartnerType } from "./PartnerType";
 export type { ResultType } from "./ResultType";
-
-export interface NavigationItem {
-    id: number;
-    name: string;
-    slug: string;
-}
+export type { FileType } from "./FileType";
+export type { NavigationItemType } from "./NavigationItemType";
+export type { LetterExampleType } from "./LetterExampleType";

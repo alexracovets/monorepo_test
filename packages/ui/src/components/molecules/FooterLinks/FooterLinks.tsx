@@ -1,6 +1,5 @@
 "use client";
 
-import { Login } from "@repo/ui/molecules";
 import { AtomLink } from "@repo/ui/atoms";
 
 export const FooterLinks = () => {
@@ -48,7 +47,6 @@ export const FooterLinks = () => {
                     </li>
                 ))}
             </ul>
-            <Login />
         </div>
     )
 }

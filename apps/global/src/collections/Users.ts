@@ -83,7 +83,7 @@ export const Users: CollectionConfig = {
       label: "Супер адміністратор",
       type: "checkbox",
       defaultValue: true,
-      validate: async (value, { req, id, data }) => {
+      validate: async (value, { req, id }) => {
         // Якщо знімаємо галочку супер адміна
         if (value === false && id) {
           const currentUser = await req.payload.findByID({

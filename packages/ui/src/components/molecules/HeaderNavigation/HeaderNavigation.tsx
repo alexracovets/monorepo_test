@@ -3,10 +3,10 @@
 import { useCheckPage } from "@repo/ui/hooks";
 import { AtomLink } from "@repo/ui/atoms";
 import { cn } from "@repo/ui/utils";
-import { NavigationItem } from "@repo/ui/types";
+import { NavigationItemType } from "@repo/ui/types";
 
 interface HeaderNavigationProps {
-    navigation: NavigationItem[];
+    navigation: NavigationItemType[] | null;
 }
 
 export const HeaderNavigation = ({ navigation }: HeaderNavigationProps) => {
@@ -15,7 +15,7 @@ export const HeaderNavigation = ({ navigation }: HeaderNavigationProps) => {
     return (
         <nav className="flex">
             <ul className="flex items-center gap-x-[4px]">
-                {navigation.map((nav, idx) => (
+                {navigation?.map((nav, idx) => (
                     <li key={nav.id || idx}>
                         <AtomLink 
                             href={`/${nav.slug}`} 

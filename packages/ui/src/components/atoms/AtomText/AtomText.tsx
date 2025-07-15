@@ -57,6 +57,7 @@ const textVariants = cva(
                 ),
                 galleryDescription: "text-[24px] font-semibold text-center mb-[24px]",
                 galleryShowCaseTitle: "text-[20px] font-semibold text-center py-[12px]",
+                fileTitle: "text-[20px] font-semibold",
             },
         },
         defaultVariants: {

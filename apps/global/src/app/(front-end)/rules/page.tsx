@@ -1,13 +1,14 @@
-import Link from "next/link";
-import { Metadata } from "next";
-import { Config } from "payload";
 
-import { AtomButton, AtomText, Container, ArrowTo } from "@repo/ui/atoms";
-import { generateMeta, getCollectionItem } from "@repo/ui/utils";
-import { RulesBlock } from "@repo/ui/organisms";
-import { Page } from "@payload-types";
-import { ContentType } from "@repo/ui/types";
 import config from "@payload-config";
+import { Config } from "payload";
+import { Metadata } from "next";
+
+import { AtomText, Container } from "@repo/ui/atoms";
+import { generateMeta, getCollectionItem } from "@repo/ui/utils";
+import { ContentType, FileType, LetterExampleType } from "@repo/ui/types";
+import { RulesBlock } from "@repo/ui/organisms";
+import { FilesBlock, LetterTemplate } from "@repo/ui/molecules";
+import { Page } from "@payload-types";
 
 export const revalidate = 60;
 
@@ -31,17 +32,13 @@ export default async function Rules() {
   if (!pageData) return <Container>404</Container>;
 
   return (
-    <Container padding roundedBottom fixHeader>
+    <Container padding roundedBottom roundedTop fixedMargin>
       <AtomText variant="headerH1" asChild>
         <h1>{pageData.title}</h1>
       </AtomText>
       <RulesBlock content={pageData.content as ContentType} />
-      <AtomButton variant="destructive_secondary" asChild className="text-[20px] font-semibold gap-x-[40px] w-max" >
-        <Link href={"/"}>
-          Переглянути шаблони описів та листів
-          <ArrowTo />
-        </Link>
-      </AtomButton>
+      {pageData.file_list && <FilesBlock list={pageData.file_list as FileType[]} />}
+      {pageData.letter_example && <LetterTemplate list={pageData.letter_example as LetterExampleType[]} />}
     </Container>
   );
 }

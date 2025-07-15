@@ -16,3 +16,5 @@ export { ItemsPageContent } from "./ItemsPageContent";
 export { NewsItemContent } from "./NewsItemContent";
 export { StepsColumn } from "./StepsColumn";
 export { SignForm } from "./SignForm";
+export { FilesBlock } from "./FilesBlock";
+export { LetterTemplate } from "./LetterTemplate";

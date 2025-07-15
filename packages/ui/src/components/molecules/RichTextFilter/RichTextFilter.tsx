@@ -64,7 +64,7 @@ export const RichTextFilter = ({ item, steps }: RichTextFilterProps) => {
             )
         case "horizontalrule":
             return (
-                <AtomHR className="max-w-[70%]" />
+                <AtomHR />
             )
         case "upload":
             return (

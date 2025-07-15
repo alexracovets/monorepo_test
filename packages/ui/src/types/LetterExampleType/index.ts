@@ -1,0 +1,1 @@
+export type { LetterExampleType } from "./LetterExampleType";

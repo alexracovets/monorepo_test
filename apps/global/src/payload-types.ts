@@ -74,6 +74,8 @@ export interface Config {
     partners: Partner;
     gallery: Gallery;
     media: Media;
+    files: File;
+    letters: Letter;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -87,6 +89,8 @@ export interface Config {
     partners: PartnersSelect<false> | PartnersSelect<true>;
     gallery: GallerySelect<false> | GallerySelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
+    files: FilesSelect<false> | FilesSelect<true>;
+    letters: LettersSelect<false> | LettersSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -227,6 +231,18 @@ export interface Page {
         id?: string | null;
       }[]
     | null;
+  file_list?:
+    | {
+        file?: (number | null) | File;
+        id?: string | null;
+      }[]
+    | null;
+  letter_example?:
+    | {
+        file?: (number | null) | Letter;
+        id?: string | null;
+      }[]
+    | null;
   meta?: {
     title?: string | null;
     description?: string | null;
@@ -237,6 +253,62 @@ export interface Page {
   };
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "files".
+ */
+export interface File {
+  id: number;
+  name: string;
+  link_to_file?: string | null;
+  description_file?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  prefix?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "letters".
+ */
+export interface Letter {
+  id: number;
+  name: string;
+  prefix?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -398,6 +470,14 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'media';
         value: number | Media;
+      } | null)
+    | ({
+        relationTo: 'files';
+        value: number | File;
+      } | null)
+    | ({
+        relationTo: 'letters';
+        value: number | Letter;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -480,6 +560,18 @@ export interface PagesSelect<T extends boolean = true> {
         content?: T;
         contentLeft?: T;
         contentRight?: T;
+        id?: T;
+      };
+  file_list?:
+    | T
+    | {
+        file?: T;
+        id?: T;
+      };
+  letter_example?:
+    | T
+    | {
+        file?: T;
         id?: T;
       };
   meta?:
@@ -569,6 +661,46 @@ export interface GallerySelect<T extends boolean = true> {
  */
 export interface MediaSelect<T extends boolean = true> {
   alt?: T;
+  prefix?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  url?: T;
+  thumbnailURL?: T;
+  filename?: T;
+  mimeType?: T;
+  filesize?: T;
+  width?: T;
+  height?: T;
+  focalX?: T;
+  focalY?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "files_select".
+ */
+export interface FilesSelect<T extends boolean = true> {
+  name?: T;
+  link_to_file?: T;
+  description_file?: T;
+  prefix?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  url?: T;
+  thumbnailURL?: T;
+  filename?: T;
+  mimeType?: T;
+  filesize?: T;
+  width?: T;
+  height?: T;
+  focalX?: T;
+  focalY?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "letters_select".
+ */
+export interface LettersSelect<T extends boolean = true> {
+  name?: T;
   prefix?: T;
   updatedAt?: T;
   createdAt?: T;

@@ -16,9 +16,6 @@ import {
 } from 'class-validator'
 
 export class RegisterPhysicalDto {
-  @IsPhoneNumber('UA', { message: 'Некоректний формат телефону.' })
-  @ApiProperty({ example: '+380501234567', description: 'Телефон користувача' })
-  phone: string
 
   @IsString()
   @IsNotEmpty()

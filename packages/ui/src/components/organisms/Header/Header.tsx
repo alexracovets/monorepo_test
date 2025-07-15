@@ -7,10 +7,10 @@ import { motion, useScroll, useMotionValueEvent } from "framer-motion";
 import { Container, Logo } from "@repo/ui/atoms";
 import { HeaderNavigation, Login } from "@repo/ui/molecules";
 import { cn } from "@repo/ui/utils";
-import { NavigationItem } from "@repo/ui/types";
+import { NavigationItemType } from "@repo/ui/types";
 
 interface HeaderProps {
-    navigation: NavigationItem[];
+    navigation: NavigationItemType[] | null;
 }
 
 export const Header = ({ navigation }: HeaderProps) => {

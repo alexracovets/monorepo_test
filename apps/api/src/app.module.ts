@@ -6,6 +6,7 @@ import { RequestsModule } from './requests/requests.module';
 import { AuthModule } from './auth/auth.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { UserModule } from './user/user.module';
+import { TurbosmsService } from './turbosms/turbosms.service';
 
 @Module({
   imports: [
@@ -13,12 +14,12 @@ import { UserModule } from './user/user.module';
     ConfigModule.forRoot({
       ignoreEnvFile: !IS_DEV_ENV,
       isGlobal: true,
-      envFilePath: ['.env.development', '.env.production', '.env'],
     }) as any,
     RequestsModule,
     PrismaModule,
     AuthModule,
     UserModule,
   ],
+  providers: [TurbosmsService],
 })
 export class AppModule {}

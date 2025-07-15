@@ -1,7 +1,7 @@
 // storage-adapter-import-placeholder
 import { postgresAdapter } from '@payloadcms/db-postgres';
 import { payloadCloudPlugin } from '@payloadcms/payload-cloud';
-import { lexicalEditor } from '@payloadcms/richtext-lexical';
+import { HorizontalRuleFeature, lexicalEditor } from '@payloadcms/richtext-lexical';
 import { ParagraphFeature, BoldFeature, ItalicFeature, StrikethroughFeature, UnderlineFeature, FixedToolbarFeature, UnorderedListFeature } from '@payloadcms/richtext-lexical';
 import { s3Storage } from '@payloadcms/storage-s3';
 import { seoPlugin } from '@payloadcms/plugin-seo';
@@ -19,6 +19,8 @@ import { Partners } from './collections/Partners';
 import { Awards } from './collections/Awards';
 import { Gallery } from './collections/Gallery';
 import { Header } from './collections/Header';
+import { Files } from './collections/Files';
+import { Letters } from './collections/Letters';
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -43,7 +45,7 @@ export default buildConfig({
       }
     }
   },
-  collections: [Users, Pages, Results, Awards, Partners, Gallery, Media],
+  collections: [Users, Pages, Results, Awards, Partners, Gallery, Media, Files, Letters],
   globals: [Header],
   editor: lexicalEditor(
     {
@@ -54,7 +56,8 @@ export default buildConfig({
         StrikethroughFeature(),
         UnderlineFeature(),
         UnorderedListFeature(),
-        FixedToolbarFeature()
+        FixedToolbarFeature(),
+        HorizontalRuleFeature()
       ],
     }
   ),
@@ -81,7 +84,13 @@ export default buildConfig({
       collections: {
         media: {
           prefix: 'media',
-        }
+        },
+        files: {
+          prefix: 'files',
+        },
+        letters: {
+          prefix: 'letters',
+        },
       },
       bucket: process.env.S3_BUCKET || '',
       config: {

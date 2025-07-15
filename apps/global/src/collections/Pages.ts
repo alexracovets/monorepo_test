@@ -1,4 +1,4 @@
-import { Steps } from './fields';
+import { Steps, FileList, LetterExample } from './fields';
 import type { CollectionConfig } from 'payload';
 
 export const Pages: CollectionConfig = {
@@ -51,5 +51,7 @@ export const Pages: CollectionConfig = {
             label: 'Контент',
         },
         Steps,
+        FileList,
+        LetterExample
     ]
 }

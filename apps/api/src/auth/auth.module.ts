@@ -9,11 +9,13 @@ import { PassportModule } from '@nestjs/passport';
 import { GoogleRecaptchaModule } from '@nestlab/google-recaptcha';
 import { getRecaptchaConfig } from 'src/config/recaptcha.config';
 import { UserModule } from 'src/user/user.module';
+import { TurbosmsModule } from 'src/turbosms/turbosms.module';
 
 @Module({
   imports: [
     UserModule,
     PassportModule,
+    TurbosmsModule,
     JwtModule.registerAsync({
       imports: [ConfigModule],
       useFactory: getJwtConfig,

@@ -16,6 +16,8 @@ import { isDev } from 'src/utils/is-dev.util'
 import { RegisterPhysicalDto , RegisterLegalDto ,RegisterLocalUserDto, VerifyOtpDto } from './dto/register.dto'
 import { LoginRequest } from './dto/login.dto'
 import { User } from 'generated/prisma'
+import { TurbosmsService } from 'src/turbosms/turbosms.service'
+import { randomInt } from 'crypto'
 
 const MAX_ATTEMPTS = 3
 const BLOCK_TIME = 300 // 5 хв
@@ -32,6 +34,8 @@ export class AuthService {
     private jwtService: JwtService,
     private prisma: PrismaService,
     private config: ConfigService,
+    private readonly turbosms: TurbosmsService,
+
   ) {
     this.JWT_ACCESS_TOKEN_TTL = config.getOrThrow('JWT_ACCESS_TOKEN_TTL')
     this.JWT_REFRESH_TOKEN_TTL = config.getOrThrow('JWT_REFRESH_TOKEN_TTL')
@@ -49,7 +53,7 @@ export class AuthService {
     if (isBlocked) {
       return { success: false, reason: 'Заблоковано за перевищення спроб' }
     }
-    const code = 9999 // TODO: замінити на турбо-смс
+    const code = randomInt(1000, 9999).toString();
 
 
 
@@ -57,7 +61,8 @@ export class AuthService {
     await this.redis.del(this.attemptsKey(phone))
     await this.redis.del(this.blockKey(phone))
 
-    console.log(`➡️ Надіслано OTP ${code} на ${phone}`)
+    const message = `Ваш код підтвердження: ${code}`;
+    await this.turbosms.sendSms(phone, message);
 
     return { success: true }
   }
@@ -90,6 +95,11 @@ export class AuthService {
 
 
   private async verifyOtp(phone: string, code: string) {
+    const successResult = {
+      success: true,
+      message: 'Телефон підтверджено',
+    }
+    if (isDev(this.config)) return successResult;
     const isBlocked = await this.redis.exists(this.blockKey(phone))
     if (isBlocked) {
       return { success: false, reason: 'Заблоковано за перевищення спроб' }
@@ -118,10 +128,7 @@ export class AuthService {
     await this.redis.del(this.attemptsKey(phone))
     await this.redis.set(this.verifiedPhoneKey(phone), '1', 'EX', 600) // 10 хв
 
-    return {
-      success: true,
-      message: 'Телефон підтверджено',
-    }
+    return successResult
   }
   private async afterVerifyOtp(phone: string) {
 
@@ -134,9 +141,9 @@ export class AuthService {
 
   // ======= РЕЄСТРАЦІЯ КОРИСТУВАЧІВ =======
 
-  async registerPhysical(dto: RegisterPhysicalDto, res: Response) {
-    const { phone, email } = dto
-
+  async registerPhysical(dto: RegisterPhysicalDto, res: Response, phone: string) {
+    
+    const { email } = dto
     const exists = await this.prisma.user.findFirst({
       where: { OR: [{ phone }, { physicalPerson: { email } }] },
     })

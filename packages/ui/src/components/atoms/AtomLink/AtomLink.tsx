@@ -47,6 +47,9 @@ const linksVariants = cva(
                 toBack: cn(
                     "flex items-center gap-x-[12px] bg-transparent text-[16px] border border-none"
                 ),
+                fileLink: cn(
+                    "text-[16px] text-blue-500 underline font-semibold"
+                ),
             },
         },
         defaultVariants: {

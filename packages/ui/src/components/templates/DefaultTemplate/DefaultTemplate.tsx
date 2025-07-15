@@ -6,11 +6,11 @@ import "@repo/ui/styles/tailwind.css";
 import { Footer, Header } from "@repo/ui/organisms";
 import { gilroy } from "@repo/ui/fonts";
 import { cn } from "@repo/ui/utils";
-import { NavigationItem } from "@repo/ui/types";
+import { NavigationItemType } from "@repo/ui/types";
 
 interface DefaultTemplateProps {
     children: React.ReactNode;
-    navigation: NavigationItem[];
+    navigation: NavigationItemType[] | null;
 }
 
 export const DefaultTemplate = ({ children, navigation }: DefaultTemplateProps) => {

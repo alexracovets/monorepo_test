@@ -12,7 +12,7 @@ export const RulesBlock = ({ content }: RulesBlockProps) => {
     const contentData = content?.root?.children;
 
     return (
-        <div className='flex flex-col mb-[40px] pt-[16px]'>
+        <div className='flex flex-col pt-[16px]'>
             {contentData.map((item, idx) => {
                 return <RichTextFilter item={item} key={idx} />
             })}

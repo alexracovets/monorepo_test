@@ -26,6 +26,7 @@ import { RegisterPhysicalDto,RegisterLegalDto, RegisterLocalUserDto, SendOtpDto,
 import { Recaptcha } from '@nestlab/google-recaptcha'
 import { Authorization } from './decorators/auth.decorator'
 import { UserType } from 'generated/prisma'
+import { Authorized } from './decorators/authorized.decorator'
 
 @ApiTags('Auth')
 @Controller('auth')
@@ -67,9 +68,10 @@ export class AuthController {
   @HttpCode(HttpStatus.CREATED)
   async registerPhysical(
     @Res({ passthrough: true }) res: Response,
+    @Authorized('phone') phone: string,
     @Body() dto: RegisterPhysicalDto,
   ) {
-    return await this.authService.registerPhysical(dto, res)
+    return await this.authService.registerPhysical(dto, res, phone)
   }
 
   @ApiOperation({
